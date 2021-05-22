@@ -29,8 +29,12 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun add() {
-        adapter.addTodo(binding.textField.text.toString())
-        binding.textField.setText("")
+        val text = binding.textField.text.toString()
+        if (text.isNotEmpty())
+        {
+            adapter.addTodo(text)
+            binding.textField.setText("")
+        }
     }
     
     class TodoHolder(view: View) : RecyclerView.ViewHolder(view) {
