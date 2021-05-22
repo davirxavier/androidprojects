@@ -2,6 +2,7 @@ package davi.xavier.tictactoe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import davi.xavier.tictactoe.databinding.ActivityMainBinding
 import kotlin.random.Random
@@ -13,14 +14,15 @@ class MainActivity : AppCompatActivity() {
     val markArr: Array<IntArray> = arrayOf(intArrayOf(0, 0, 0), intArrayOf(0, 0, 0), intArrayOf(0, 0, 0))
     var checkedCount = 0
     var currentWon = false
+    var animationRunnable: Runnable? = null
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        binding.randoButton.setOnClickListener { randomizeLayout() }
-        binding.resetButton.setOnClickListener { restartGame() }
+        binding.randoButton.setOnClickListener { randomizeLayout(null) }
+        binding.resetButton.setOnClickListener { randomizeLayout { restartGame() } }
         
         restartGame()
     }
@@ -117,17 +119,35 @@ class MainActivity : AppCompatActivity() {
         binding.turnText.setText("Turn: " + NumChar.getByValue(currentTurn).char)
     }
     
-    fun randomizeLayout() {
-        val arr: IntArray = intArrayOf(1, 2, 3)
+    fun randomizeLayout(callback: (() -> Unit)?) {
+        if (animationRunnable != null)
+            return
         
-        for (i in arr) {
-            for (j in arr) {
-                getImgView(i, j).setImageResource(when (Random.nextInt(1, 3)) {
-                    1 -> R.drawable.o
-                    else -> R.drawable.x
-                })
+        var counter = 0
+        val arr = intArrayOf(1, 2, 3)
+        
+        var runnable = Runnable {  }
+        runnable = Runnable {
+            if (counter > 5)
+            {
+                callback?.invoke()
+                animationRunnable = null
+                return@Runnable
             }
+            
+            counter++
+
+            for (i in arr) {
+                for (j in arr) {
+                    val img = getImgView(i, j)
+                    img.setImageResource(when (Random.nextInt(1, 3)) { 1 -> R.drawable.x else -> R.drawable.o })
+                }
+            }
+            binding.root.postDelayed(runnable, 90)
         }
+
+        animationRunnable = runnable
+        binding.root.postDelayed(runnable, 90)
     }
     
     fun getImgView(i: Int, j: Int): ImageView {
