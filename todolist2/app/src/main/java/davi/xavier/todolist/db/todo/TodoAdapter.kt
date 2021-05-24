@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import davi.xavier.todolist.R
 
-class TodoAdapter() : RecyclerView.Adapter<TodoViewHolder>() {
+open class TodoAdapter() : RecyclerView.Adapter<TodoViewHolder>() {
     var deleteCallback: (pos: Int) -> Unit = {}
     private var todos: MutableList<String> = mutableListOf()
 
-    fun addTodo(text: String) {
+    fun add(text: String) {
         todos.add(text)
         notifyItemInserted(todos.size)
     }
 
-    fun deleteTodo(i: Int) {
+    fun delete(i: Int) {
         if (i < todos.size && i >= 0)
         {
             todos.removeAt(i)

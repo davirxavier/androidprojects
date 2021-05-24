@@ -8,6 +8,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo")
     fun getAll(): LiveData<List<Todo>>
     
+    @Query("SELECT * FROM todo WHERE category = :id")
+    fun getAllByCategoryId(id: Int): LiveData<List<Todo>>
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(todo: Todo)
     

@@ -2,15 +2,18 @@ package davi.xavier.todolist
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import davi.xavier.todolist.databinding.FragmentListBinding
 import davi.xavier.todolist.db.todo.DatabaseInstance
 import davi.xavier.todolist.db.todo.TodoAdapter
 import davi.xavier.todolist.db.todo.TodoViewModel
+import davi.xavier.todolist.db.todo.TodoViewModelFactory
 
 class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
@@ -30,13 +33,13 @@ class ListFragment : Fragment() {
 
         adapter = TodoAdapter()
         binding.todoList.adapter = adapter
-        binding.todoList.layoutManager = LinearLayoutManager(activity)
+        binding.todoList.layoutManager = LinearLayoutManager(requireActivity())
 
-        todoViewModel = TodoViewModel(DatabaseInstance.getInstance(currentContext).todoDao())
+        todoViewModel = ViewModelProvider(requireActivity(), 
+            TodoViewModelFactory(DatabaseInstance.getInstance(requireContext()).todoDao())).get(TodoViewModel::class.java)
 
         todoViewModel.getTodoList().observe(viewLifecycleOwner, { todos ->
             adapter.setAll(todos.map { t -> if (t.text == null) "" else (t.text as String) })
-
             adapter.deleteCallback = {
                 if (it >= 0 && it < todos.size)
                 {
