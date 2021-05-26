@@ -45,4 +45,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="128dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+    <CheckBox
+            android:text="Criar novo usuário com essas informações"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/signUpCheckbox"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/loginButton" android:layout_marginBottom="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
