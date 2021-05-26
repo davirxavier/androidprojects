@@ -43,11 +43,18 @@ class LoginActivity : AppCompatActivity() {
         
         if (email.isNotBlank() && pass.isNotBlank())
         {
-            firebaseAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener { 
-                gotoHome(email)
-            }.addOnFailureListener { 
-                Toast.makeText(this, "Credenciais inválidas.", Toast.LENGTH_SHORT).show()
+            if (binding.signUpCheckbox.isChecked) {
+                firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnSuccessListener {
+                    firebaseAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener {
+                        gotoHome(email)
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Credenciais inválidas.", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Falha no cadastro: " + it.message, Toast.LENGTH_LONG).show()
+                }
             }
+            
         }
     }
     
