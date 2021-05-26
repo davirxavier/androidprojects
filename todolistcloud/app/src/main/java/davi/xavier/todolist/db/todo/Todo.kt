@@ -1,14 +1,12 @@
 package davi.xavier.todolist.db.todo
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.database.IgnoreExtraProperties
 
-@Entity
+@IgnoreExtraProperties
 class Todo(
-    @ColumnInfo(name = "text") var text: String? = null,
-    @ColumnInfo(name = "category") var category: Int = -1,
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    var text: String? = null,
+    var category: Int = -1,
+    var uid: String? = null
 ) {
 
 }

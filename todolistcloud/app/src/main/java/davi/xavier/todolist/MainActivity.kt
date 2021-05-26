@@ -1,26 +1,16 @@
 package davi.xavier.todolist
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import davi.xavier.todolist.databinding.ActivityMainBinding
 import davi.xavier.todolist.db.category.Category
 import davi.xavier.todolist.db.category.CategoryViewModel
-import davi.xavier.todolist.db.todo.DatabaseInstance
-import davi.xavier.todolist.db.todo.StringDiffChecker
 import davi.xavier.todolist.db.todo.TodoViewModel
-import davi.xavier.todolist.db.todo.TodoViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -37,8 +27,7 @@ class MainActivity : AppCompatActivity() {
             add()
         }
 
-        todoViewModel = ViewModelProvider(this,
-            TodoViewModelFactory(DatabaseInstance.getInstance(this).todoDao())).get(TodoViewModel::class.java)
+        todoViewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         catViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         catViewModel.getAll().observe(this) {
             catNameList.clear()

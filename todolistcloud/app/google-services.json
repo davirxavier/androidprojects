@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461142094433",
+    "project_id": "todolostcloud",
+    "storage_bucket": "todolostcloud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461142094433:android:27c6458a6ad2712b4d3020",
+        "android_client_info": {
+          "package_name": "davi.xavier.todolist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461142094433-rhap9lfflvbs1s6ol7hllrbhhu861rmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwsmNkqU08EIgc95o96-0pQKryVN8Qt3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461142094433-rhap9lfflvbs1s6ol7hllrbhhu861rmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

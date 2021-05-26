@@ -3,8 +3,8 @@ package davi.xavier.todolist.db.todo
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
-class TodoViewModel(todoDao: TodoDao): ViewModel() {
-    private val dao = todoDao
+class TodoViewModel(): ViewModel() {
+    private val dao: TodoDao = FirebaseTodoDao()
     
     private val todos = MutableLiveData<List<Todo>>(mutableListOf())
     init {
@@ -12,15 +12,16 @@ class TodoViewModel(todoDao: TodoDao): ViewModel() {
         data.observeForever{
             todos.postValue(it)
         }
+        
     }
     
     fun newTodo(text: String, catId: Int) {
         viewModelScope.launch { dao.insert(Todo(text, catId)) }
     }
     
-    fun deleteTodo(id: Int) {
+    fun deleteTodo(uid: String?) {
         viewModelScope.launch { 
-            dao.delete(Todo("", id)) 
+            dao.delete(Todo("", -1, uid)) 
         }
     }
     

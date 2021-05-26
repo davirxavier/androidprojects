@@ -36,8 +36,7 @@ class CategoryFragment : Fragment() {
         binding.catList.layoutManager = LinearLayoutManager(context)
         
         val viewModel = ViewModelProvider(requireActivity()).get(CategoryViewModel::class.java)
-        val todoViewModel = ViewModelProvider(requireActivity(),
-            TodoViewModelFactory(DatabaseInstance.getInstance(requireContext()).todoDao())).get(TodoViewModel::class.java)
+        val todoViewModel = ViewModelProvider(requireActivity()).get(TodoViewModel::class.java)
         
         viewModel.getAll().observe(viewLifecycleOwner, { 
             adapter.setAll(it.map { cat -> cat.name ?: "" })

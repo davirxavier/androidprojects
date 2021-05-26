@@ -1,17 +1,22 @@
 package davi.xavier.todolist.db.todo
 
 import android.content.Context
-import androidx.room.Room
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 object DatabaseInstance {
     
-    private var database: AppDatabase? = null
+    private val database: DatabaseReference by lazy {
+        Firebase.database.reference
+    }
     
-    fun getInstance(context: Context): AppDatabase {
-        if (database == null) {
-            database = Room.databaseBuilder(context, AppDatabase::class.java, "todolist2.db").build()
-        }
-        
-        return database as AppDatabase
+    @Deprecated("Use getInstance()")
+    fun getInstance(context: Context): DatabaseReference {
+        return database
+    }
+    
+    fun getInstance(): DatabaseReference {
+        return database
     }
 }

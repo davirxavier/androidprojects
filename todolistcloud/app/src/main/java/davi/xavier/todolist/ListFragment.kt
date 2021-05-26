@@ -35,15 +35,14 @@ class ListFragment : Fragment() {
         binding.todoList.adapter = adapter
         binding.todoList.layoutManager = LinearLayoutManager(requireActivity())
 
-        todoViewModel = ViewModelProvider(requireActivity(), 
-            TodoViewModelFactory(DatabaseInstance.getInstance(requireContext()).todoDao())).get(TodoViewModel::class.java)
+        todoViewModel = ViewModelProvider(requireActivity()).get(TodoViewModel::class.java)
 
         todoViewModel.getTodoList().observe(viewLifecycleOwner, { todos ->
             adapter.setAll(todos.map { t -> if (t.text == null) "" else (t.text as String) })
             adapter.deleteCallback = {
                 if (it >= 0 && it < todos.size)
                 {
-                    todoViewModel.deleteTodo(todos[it].id)
+                    todoViewModel.deleteTodo(todos[it].uid)
                 }
             }
         })
