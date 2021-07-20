@@ -64,9 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun isWin(): WinEnum {
-        if (checkedCount == 9)
-            return WinEnum.DRAW
-        
         for (i in intArrayOf(0, 1, 2)) {
             var countX = 0
             var countY = 0
@@ -95,6 +92,9 @@ class MainActivity : AppCompatActivity() {
                 return WinEnum.WIN
             }
         }
+
+        if (checkedCount == 9)
+            return WinEnum.DRAW
         
         return WinEnum.NO_WIN
     }
