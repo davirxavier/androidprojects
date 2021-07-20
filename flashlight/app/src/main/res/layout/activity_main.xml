@@ -13,6 +13,16 @@
             android:clickable="true" app:srcCompat="@drawable/ic_baseline_highlight_24"
             android:id="@+id/toggleButton"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:fabCustomSize="90dp"
+            app:maxImageSize="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+    <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/autoButton"
+            android:checked="false"
+            android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/toggleButton" android:textOff="@string/auto_off"
+            android:textOn="@string/auto_on" app:layout_constraintStart_toStartOf="@+id/toggleButton"
+            app:layout_constraintEnd_toEndOf="@+id/toggleButton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
